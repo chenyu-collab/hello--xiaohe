@@ -166,9 +166,13 @@
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     letter-spacing: 1px;
     -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active {
+    transform: scale(0.94);
+    transition-duration: 0.08s;
   }
 
   .btn-primary {
@@ -177,8 +181,8 @@
     box-shadow: 0 6px 20px rgba(255, 59, 92, 0.4);
   }
   .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(255, 59, 92, 0.55);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 32px rgba(255, 59, 92, 0.55);
   }
 
   .btn-secondary {
@@ -189,6 +193,7 @@
   .btn-secondary:hover {
     background: #fff5f7;
     border-color: #ff6b81;
+    transform: translateY(-2px) scale(1.03);
   }
 
   /* ---- 底部 ---- */
@@ -287,7 +292,10 @@
     line-height: 30px;
     text-align: center;
     box-shadow: 0 4px 12px rgba(255,45,85,0.4);
+    transition: transform 0.2s;
   }
+  .photo-popup .close-btn:hover { transform: scale(1.12); }
+  .photo-popup .close-btn:active { transform: scale(0.9); }
 
   .photo-popup img {
     width: 100%;
@@ -339,6 +347,14 @@
     .message { font-size: 22px; }
     .kitty-wrapper { width: 150px; height: 150px; }
   }
+
+  /* ---- 无障碍：减弱动画 ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .card { animation: none; }
+    .floating-heart { animation: none; opacity: 0; }
+    .kitty-wrapper.wiggle { animation: none; }
+    .music-btn.playing { animation: none; }
+  }
 </style>
 </head>
 <body>
@@ -351,48 +367,70 @@
   <div class="kitty-wrapper" id="kittyWrapper" onclick="tapKitty(event)">
     <div class="tap-hint" id="tapHint">+1 💕</div>
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <!-- 左耳 -->
-      <ellipse cx="42" cy="52" rx="22" ry="24" fill="#fff" stroke="#e890a0" stroke-width="2.5" transform="rotate(-15 42 52)"/>
-      <ellipse cx="42" cy="52" rx="12" ry="14" fill="#fdd0da" transform="rotate(-15 42 52)"/>
-      <!-- 右耳 -->
-      <ellipse cx="158" cy="52" rx="22" ry="24" fill="#fff" stroke="#e890a0" stroke-width="2.5" transform="rotate(15 158 52)"/>
-      <ellipse cx="158" cy="52" rx="12" ry="14" fill="#fdd0da" transform="rotate(15 158 52)"/>
+      <defs>
+        <radialGradient id="blushL" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffb3c1" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#ffb3c1" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="blushR" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffb3c1" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#ffb3c1" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#e890a0" flood-opacity="0.2"/>
+        </filter>
+      </defs>
 
-      <!-- 脸 -->
-      <ellipse cx="100" cy="108" rx="72" ry="63" fill="#fff" stroke="#e890a0" stroke-width="2.5"/>
+      <!-- 左耳 (viewer left = Kitty's left ear) -->
+      <ellipse cx="30" cy="55" rx="24" ry="26" fill="#fff" stroke="#e890a0" stroke-width="2.2" transform="rotate(-18 30 55)"/>
+      <ellipse cx="30" cy="55" rx="13" ry="15" fill="#ffe0e8" transform="rotate(-18 30 55)"/>
 
-      <!-- 蝴蝶结 -->
-      <g transform="translate(148, 38)">
-        <ellipse cx="-11" cy="0" rx="15" ry="10" fill="#ff2d55" transform="rotate(-20)"/>
-        <ellipse cx="11" cy="0" rx="15" ry="10" fill="#ff2d55" transform="rotate(20)"/>
-        <circle cx="0" cy="0" r="9" fill="#ff2d55"/>
-        <circle cx="0" cy="0" r="3" fill="#ff5c7a"/>
+      <!-- 右耳 (viewer right = Kitty's right ear) -->
+      <ellipse cx="170" cy="55" rx="24" ry="26" fill="#fff" stroke="#e890a0" stroke-width="2.2" transform="rotate(18 170 55)"/>
+      <ellipse cx="170" cy="55" rx="13" ry="15" fill="#ffe0e8" transform="rotate(18 170 55)"/>
+
+      <!-- 蝴蝶结 (on Kitty's right ear / viewer's right) — 经典大红蝴蝶结 -->
+      <g transform="translate(170, 30)">
+        <!-- 左瓣 -->
+        <path d="M-4,-2 C-28,-18 -32,8 -6,6" fill="#e8203b" stroke="#c41230" stroke-width="0.8"/>
+        <!-- 右瓣 -->
+        <path d="M4,-2 C28,-18 32,8 6,6" fill="#e8203b" stroke="#c41230" stroke-width="0.8"/>
+        <!-- 下飘带 (左) -->
+        <path d="M-3,5 C-10,16 -8,26 -2,28" fill="none" stroke="#e8203b" stroke-width="4" stroke-linecap="round"/>
+        <!-- 下飘带 (右) -->
+        <path d="M3,5 C10,16 8,26 2,28" fill="none" stroke="#e8203b" stroke-width="4" stroke-linecap="round"/>
+        <!-- 中心结 -->
+        <circle cx="0" cy="2" r="6.5" fill="#ff2650"/>
+        <circle cx="-1" cy="1" r="2" fill="#ff6b81" opacity="0.7"/>
       </g>
 
-      <!-- 左眼 -->
-      <ellipse cx="76" cy="100" rx="7" ry="9" fill="#333"/>
-      <ellipse cx="78" cy="97" rx="2.5" ry="3" fill="#fff"/>
+      <!-- 脸 — 经典椭圆，略宽 -->
+      <ellipse cx="100" cy="108" rx="76" ry="62" fill="#fff" stroke="#e890a0" stroke-width="2.2" filter="url(#softShadow)"/>
+
+      <!-- 左眼 — 椭圆黑豆眼 + 高光 -->
+      <ellipse cx="73" cy="98" rx="6.5" ry="8.5" fill="#1a1a1a"/>
+      <ellipse cx="75" cy="95" rx="2.2" ry="2.8" fill="#fff"/>
 
       <!-- 右眼 -->
-      <ellipse cx="124" cy="100" rx="7" ry="9" fill="#333"/>
-      <ellipse cx="126" cy="97" rx="2.5" ry="3" fill="#fff"/>
+      <ellipse cx="127" cy="98" rx="6.5" ry="8.5" fill="#1a1a1a"/>
+      <ellipse cx="129" cy="95" rx="2.2" ry="2.8" fill="#fff"/>
 
-      <!-- 鼻子 -->
-      <ellipse cx="100" cy="114" rx="7" ry="5.5" fill="#fcc700"/>
+      <!-- 鼻子 — 经典黄色椭圆 -->
+      <ellipse cx="100" cy="113" rx="6" ry="5" fill="#f9c440"/>
 
-      <!-- 左胡须 -->
-      <line x1="70" y1="104" x2="22" y2="97" stroke="#888" stroke-width="1.8" stroke-linecap="round"/>
-      <line x1="70" y1="113" x2="18" y2="113" stroke="#888" stroke-width="1.8" stroke-linecap="round"/>
-      <line x1="70" y1="122" x2="22" y2="129" stroke="#888" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- 左胡须 (3根) -->
+      <line x1="68" y1="103" x2="18" y2="96" stroke="#999" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="68" y1="112" x2="14" y2="112" stroke="#999" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="68" y1="121" x2="18" y2="128" stroke="#999" stroke-width="1.6" stroke-linecap="round"/>
 
-      <!-- 右胡须 -->
-      <line x1="130" y1="104" x2="178" y2="97" stroke="#888" stroke-width="1.8" stroke-linecap="round"/>
-      <line x1="130" y1="113" x2="182" y2="113" stroke="#888" stroke-width="1.8" stroke-linecap="round"/>
-      <line x1="130" y1="122" x2="178" y2="129" stroke="#888" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- 右胡须 (3根，严格对称) -->
+      <line x1="132" y1="96" x2="182" y2="103" stroke="#999" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="132" y1="112" x2="186" y2="112" stroke="#999" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="132" y1="128" x2="182" y2="121" stroke="#999" stroke-width="1.6" stroke-linecap="round"/>
 
-      <!-- 腮红 -->
-      <ellipse cx="58" cy="115" rx="10" ry="6" fill="#ffd1dc" opacity="0.5"/>
-      <ellipse cx="142" cy="115" rx="10" ry="6" fill="#ffd1dc" opacity="0.5"/>
+      <!-- 腮红 (渐变) -->
+      <ellipse cx="52" cy="117" rx="14" ry="8" fill="url(#blushL)"/>
+      <ellipse cx="148" cy="117" rx="14" ry="8" fill="url(#blushR)"/>
     </svg>
   </div>
 
@@ -529,58 +567,83 @@
     document.getElementById('photoPopupOverlay').classList.remove('show');
   }
 
-  // ---- 音乐播放器 ----
+  // ---- 音乐播放器 (舒缓音乐盒，约 30s 循环) ----
   let audioCtx = null;
   let musicPlaying = false;
   let musicTimer = null;
   const musicBtn = document.getElementById('musicBtn');
 
-  // 音乐盒风格旋律音符 (C5-D5-E5-G5-A5 五声音阶)
-  const notes = [
-    { freq: 659.25, dur: 0.4 },  // E5
-    { freq: 587.33, dur: 0.4 },  // D5
-    { freq: 523.25, dur: 0.4 },  // C5
-    { freq: 587.33, dur: 0.4 },  // D5
-    { freq: 659.25, dur: 0.4 },  // E5
-    { freq: 659.25, dur: 0.3 },  // E5
-    { freq: 783.99, dur: 0.3 },  // G5
-    { freq: 880.00, dur: 0.5 },  // A5
-    { freq: 783.99, dur: 0.3 },  // G5
-    { freq: 659.25, dur: 0.4 },  // E5
-    { freq: 587.33, dur: 0.4 },  // D5
-    { freq: 523.25, dur: 0.6 },  // C5
-    { freq: 0,      dur: 0.3 },  // rest
+  const melodyA = [
+    // 乐句1 — 轻柔上行
+    { f: 523.25, d: 0.55 }, { f: 587.33, d: 0.30 }, { f: 659.25, d: 0.55 }, { f: 783.99, d: 0.55 },
+    { f: 880.00, d: 0.80 }, { f: 783.99, d: 0.35 }, { f: 659.25, d: 0.30 },
+    { f: 0, d: 0.25 },
+    // 乐句2 — 下行回旋
+    { f: 659.25, d: 0.55 }, { f: 587.33, d: 0.30 }, { f: 523.25, d: 0.55 }, { f: 659.25, d: 0.55 },
+    { f: 587.33, d: 0.80 }, { f: 523.25, d: 0.35 }, { f: 440.00, d: 0.30 },
+    { f: 0, d: 0.30 },
+    // 乐句3 — 展开
+    { f: 440.00, d: 0.55 }, { f: 523.25, d: 0.30 }, { f: 587.33, d: 0.55 }, { f: 659.25, d: 0.55 },
+    { f: 783.99, d: 0.55 }, { f: 659.25, d: 0.55 }, { f: 783.99, d: 0.55 }, { f: 880.00, d: 0.55 },
+    { f: 0, d: 0.30 },
+    // 乐句4 — 高潮
+    { f: 880.00, d: 0.55 }, { f: 783.99, d: 0.30 }, { f: 1046.50, d: 0.55 }, { f: 880.00, d: 0.55 },
+    { f: 783.99, d: 0.80 }, { f: 659.25, d: 0.35 }, { f: 587.33, d: 0.30 },
+    { f: 0, d: 0.30 },
+    // 乐句5 — 回归
+    { f: 659.25, d: 0.55 }, { f: 587.33, d: 0.30 }, { f: 523.25, d: 0.55 }, { f: 587.33, d: 0.55 },
+    { f: 659.25, d: 0.55 }, { f: 523.25, d: 0.55 }, { f: 440.00, d: 0.55 }, { f: 523.25, d: 0.55 },
+    { f: 0, d: 0.25 },
+    // 乐句6 — 收尾
+    { f: 523.25, d: 0.55 }, { f: 659.25, d: 0.55 }, { f: 587.33, d: 0.55 }, { f: 523.25, d: 0.55 },
+    { f: 440.00, d: 1.00 },
+    { f: 0, d: 0.80 },
   ];
 
   function playNote(freq, dur) {
-    if (!audioCtx) return;
+    if (!audioCtx || !musicPlaying) return;
     const now = audioCtx.currentTime;
+    // 主音 — 柔和的 sine 波
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-    osc.type = 'triangle';
+    osc.type = 'sine';
     osc.frequency.setValueAtTime(freq, now);
     gain.gain.setValueAtTime(0, now);
-    gain.gain.linearRampToValueAtTime(0.15, now + 0.03);
-    gain.gain.linearRampToValueAtTime(0.08, now + dur * 0.6);
+    gain.gain.linearRampToValueAtTime(0.10, now + 0.06);
+    gain.gain.setValueAtTime(0.10, now + dur * 0.5);
     gain.gain.linearRampToValueAtTime(0, now + dur);
     osc.connect(gain);
     gain.connect(audioCtx.destination);
     osc.start(now);
-    osc.stop(now + dur + 0.05);
+    osc.stop(now + dur + 0.08);
+
+    // 泛音层 — 高八度，增加晶莹感
+    if (freq > 0) {
+      const osc2 = audioCtx.createOscillator();
+      const gain2 = audioCtx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(freq * 2, now);
+      gain2.gain.setValueAtTime(0, now);
+      gain2.gain.linearRampToValueAtTime(0.025, now + 0.04);
+      gain2.gain.linearRampToValueAtTime(0, now + dur);
+      osc2.connect(gain2);
+      gain2.connect(audioCtx.destination);
+      osc2.start(now);
+      osc2.stop(now + dur + 0.05);
+    }
   }
 
   function playMelody() {
     if (!musicPlaying) return;
     let delay = 0;
-    notes.forEach(n => {
-      if (n.freq > 0) {
-        setTimeout(() => playNote(n.freq, n.dur), delay * 1000);
+    melodyA.forEach(n => {
+      if (n.f > 0) {
+        setTimeout(() => playNote(n.f, n.d), delay * 1000);
       }
-      delay += n.dur;
+      delay += n.d;
     });
-    // 循环播放，留一小段间隔
-    const totalDur = notes.reduce((s, n) => s + n.dur, 0);
-    musicTimer = setTimeout(playMelody, (totalDur + 0.6) * 1000);
+    const totalDur = melodyA.reduce((s, n) => s + n.d, 0);
+    musicTimer = setTimeout(playMelody, (totalDur + 1.0) * 1000);
   }
 
   function startMusic() {
@@ -589,6 +652,7 @@
     musicBtn.textContent = '🎶';
     musicBtn.classList.add('playing');
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     playMelody();
   }
 
@@ -601,14 +665,10 @@
 
   function toggleMusic(event) {
     event.stopPropagation();
-    if (musicPlaying) {
-      stopMusic();
-    } else {
-      startMusic();
-    }
+    if (musicPlaying) { stopMusic(); }
+    else { startMusic(); }
   }
 
-  // 首次交互时自动开始音乐（遵循浏览器自动播放策略）
   let musicAutoStarted = false;
   document.addEventListener('click', function autoStart() {
     if (musicAutoStarted) return;
