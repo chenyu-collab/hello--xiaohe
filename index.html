@@ -18,7 +18,7 @@
 
   body {
     min-height: 100vh;
-    background: linear-gradient(180deg, #fff0f5 0%, #ffe4ee 20%, #ffdde8 50%, #ffdae6 80%, #ffd6e3 100%);
+    background: linear-gradient(180deg, #ffd6e3 0%, #ffe4ec 25%, #fff0f5 55%, #fefbfc 85%, #ffffff 100%);
     font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     display: flex;
     justify-content: center;
@@ -236,9 +236,8 @@
 
   /* ---- 底部小动物 ---- */
   .bottom-animals {
-    position: fixed; bottom: 0; left: 0; width: 100%; height: 28vh;
+    position: fixed; bottom: 0; left: 0; width: 100%; height: 35vh;
     pointer-events: none; z-index: 1;
-    opacity: 0.7;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -337,108 +336,179 @@
 
 </main>
 
-<!-- 底部小动物简笔画 -->
-<svg class="bottom-animals" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <!-- 小猫 (左1) -->
-  <g transform="translate(20, 90)">
-    <!-- 身体 -->
+<!-- 底部场景：小动物 + 花草 + 曲折地面 -->
+<svg class="bottom-animals" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+  <!-- === 地面 (三层波浪) === -->
+  <!-- 最远层 -->
+  <path d="M0,155 Q25,148 50,153 Q75,157 100,150 Q125,143 150,149 Q175,155 200,148 Q225,141 250,147 Q275,153 300,146 Q325,139 350,145 Q375,151 400,144 L400,220 L0,220Z" fill="#ffe8ee" opacity="0.6"/>
+  <!-- 中间层 -->
+  <path d="M0,168 Q30,160 60,165 Q90,170 120,163 Q150,156 180,162 Q210,168 240,161 Q270,154 300,160 Q330,166 360,159 Q390,152 400,158 L400,220 L0,220Z" fill="#ffe0e8" opacity="0.7"/>
+  <!-- 最近层 -->
+  <path d="M0,182 Q35,174 70,180 Q105,186 140,178 Q175,170 210,177 Q245,184 280,176 Q315,168 350,175 Q385,182 400,174 L400,220 L0,220Z" fill="#ffd6e0" opacity="0.8"/>
+
+  <!-- === 散落花草 === -->
+  <!-- 小花1 -->
+  <g transform="translate(15, 170)">
+    <line x1="3" y1="0" x2="3" y2="12" stroke="#d0e8c0" stroke-width="1.2"/>
+    <circle cx="3" cy="-1" r="2.5" fill="#ffe0ec"/>
+    <circle cx="3" cy="-1" r="1" fill="#ffb8cc"/>
+  </g>
+  <!-- 小花2 -->
+  <g transform="translate(75, 175)">
+    <line x1="4" y1="0" x2="4" y2="10" stroke="#d0e8c0" stroke-width="1"/>
+    <circle cx="4" cy="-1" r="2" fill="#ffe8f0"/>
+    <circle cx="4" cy="-1" r="0.8" fill="#ffd0dd"/>
+  </g>
+  <!-- 蘑菇1 -->
+  <g transform="translate(130, 168)">
+    <rect x="3.5" y="4" width="2.5" height="6" rx="1" fill="#f5e8d8"/>
+    <path d="M0,4 Q5,-4 10,4Z" fill="#ffe0e0" stroke="#f0c8c8" stroke-width="0.6"/>
+    <circle cx="7" cy="1" r="1" fill="#fff" opacity="0.7"/>
+    <circle cx="3" cy="2" r="0.7" fill="#fff" opacity="0.6"/>
+  </g>
+  <!-- 小花3 -->
+  <g transform="translate(210, 172)">
+    <line x1="3" y1="0" x2="3" y2="10" stroke="#d0e8c0" stroke-width="1"/>
+    <circle cx="3" cy="-2" r="2.8" fill="#fff0f5"/>
+    <circle cx="3" cy="-2" r="1.2" fill="#ffe0e8"/>
+  </g>
+  <!-- 蘑菇2 -->
+  <g transform="translate(285, 165)">
+    <rect x="4" y="5" width="3" height="7" rx="1.2" fill="#f5e8d8"/>
+    <path d="M0,5 Q6,-6 12,5Z" fill="#fff0e8" stroke="#f0d8c0" stroke-width="0.6"/>
+    <circle cx="7" cy="1" r="0.8" fill="#fff" opacity="0.6"/>
+    <circle cx="4" cy="3" r="0.6" fill="#fff" opacity="0.5"/>
+  </g>
+  <!-- 小花4 -->
+  <g transform="translate(340, 178)">
+    <line x1="3" y1="0" x2="3" y2="9" stroke="#d0e8c0" stroke-width="1.1"/>
+    <circle cx="3" cy="-1" r="2.2" fill="#ffe8ee"/>
+    <circle cx="3" cy="-1" r="0.9" fill="#ffced8"/>
+  </g>
+  <!-- 小草簇1 -->
+  <g transform="translate(50, 178)" stroke="#d8e8c8" stroke-width="1" fill="none" stroke-linecap="round">
+    <path d="M0,0 Q2,-8 0,-14"/>
+    <path d="M0,0 Q0,-10 -2,-16"/>
+    <path d="M0,0 Q4,-6 5,-11"/>
+  </g>
+  <!-- 小草簇2 -->
+  <g transform="translate(230, 175)" stroke="#d8e8c8" stroke-width="1" fill="none" stroke-linecap="round">
+    <path d="M0,0 Q3,-7 1,-12"/>
+    <path d="M0,0 Q-2,-9 -4,-14"/>
+    <path d="M0,0 Q0,-6 3,-9"/>
+  </g>
+  <!-- 小草簇3 -->
+  <g transform="translate(370, 170)" stroke="#d8e8c8" stroke-width="0.9" fill="none" stroke-linecap="round">
+    <path d="M0,0 Q2,-7 0,-11"/>
+    <path d="M0,0 Q-1,-8 -2,-13"/>
+  </g>
+
+  <!-- === 小动物 === -->
+  <!-- 小猫 -->
+  <g transform="translate(28, 130)">
     <ellipse cx="20" cy="20" rx="16" ry="13" fill="#fff" stroke="#e8b4b8" stroke-width="1.8"/>
-    <!-- 头 -->
     <circle cx="20" cy="2" r="11" fill="#fff" stroke="#e8b4b8" stroke-width="1.8"/>
-    <!-- 耳朵 -->
     <polygon points="12,-7 16,0 9,0" fill="#ffd4d8" stroke="#e8b4b8" stroke-width="1.2"/>
     <polygon points="28,-7 24,0 31,0" fill="#ffd4d8" stroke="#e8b4b8" stroke-width="1.2"/>
-    <!-- 眼睛 -->
     <circle cx="16" cy="1" r="1.5" fill="#c09098"/>
     <circle cx="24" cy="1" r="1.5" fill="#c09098"/>
-    <!-- 鼻子 -->
     <ellipse cx="20" cy="5" rx="1.8" ry="1.2" fill="#f0b0b8"/>
-    <!-- 尾巴 -->
     <path d="M36,22 Q44,8 38,0" fill="none" stroke="#e8b4b8" stroke-width="1.8" stroke-linecap="round"/>
-    <!-- 胡须 -->
     <line x1="10" y1="4" x2="3" y2="2" stroke="#e0c0c8" stroke-width="0.8"/>
     <line x1="10" y1="6" x2="2" y2="6" stroke="#e0c0c8" stroke-width="0.8"/>
     <line x1="30" y1="4" x2="37" y2="2" stroke="#e0c0c8" stroke-width="0.8"/>
     <line x1="30" y1="6" x2="38" y2="6" stroke="#e0c0c8" stroke-width="0.8"/>
   </g>
 
-  <!-- 小兔 (左2) -->
-  <g transform="translate(90, 95)">
-    <!-- 身体 -->
+  <!-- 小兔 -->
+  <g transform="translate(95, 130)">
     <ellipse cx="18" cy="18" rx="14" ry="11" fill="#fff" stroke="#e8b4b8" stroke-width="1.8"/>
-    <!-- 头 -->
     <circle cx="18" cy="3" r="10" fill="#fff" stroke="#e8b4b8" stroke-width="1.8"/>
-    <!-- 长耳朵 -->
     <ellipse cx="12" cy="-14" rx="4.5" ry="13" fill="#fff" stroke="#e8b4b8" stroke-width="1.4"/>
     <ellipse cx="12" cy="-14" rx="2.5" ry="10" fill="#ffdde4"/>
     <ellipse cx="24" cy="-14" rx="4.5" ry="13" fill="#fff" stroke="#e8b4b8" stroke-width="1.4"/>
     <ellipse cx="24" cy="-14" rx="2.5" ry="10" fill="#ffdde4"/>
-    <!-- 眼睛 -->
     <circle cx="14" cy="2" r="1.4" fill="#c09098"/>
     <circle cx="22" cy="2" r="1.4" fill="#c09098"/>
-    <!-- 鼻子 -->
     <ellipse cx="18" cy="6" rx="1.5" ry="1" fill="#f0b0b8"/>
-    <!-- 尾巴 -->
     <circle cx="33" cy="20" r="4" fill="#fff" stroke="#e8b4b8" stroke-width="1"/>
   </g>
 
-  <!-- 小熊 (中间) -->
-  <g transform="translate(160, 85)">
-    <!-- 身体 -->
+  <!-- 小熊 -->
+  <g transform="translate(160, 122)">
     <ellipse cx="22" cy="24" rx="18" ry="16" fill="#fff" stroke="#e8b4b8" stroke-width="1.8"/>
-    <!-- 头 -->
     <circle cx="22" cy="3" r="13" fill="#fff" stroke="#e8b4b8" stroke-width="1.8"/>
-    <!-- 耳朵 -->
     <circle cx="10" cy="-7" r="6" fill="#fff" stroke="#e8b4b8" stroke-width="1.5"/>
     <circle cx="10" cy="-7" r="3.5" fill="#ffe8d0"/>
     <circle cx="34" cy="-7" r="6" fill="#fff" stroke="#e8b4b8" stroke-width="1.5"/>
     <circle cx="34" cy="-7" r="3.5" fill="#ffe8d0"/>
-    <!-- 眼睛 -->
     <circle cx="17" cy="1" r="1.6" fill="#c09098"/>
     <circle cx="27" cy="1" r="1.6" fill="#c09098"/>
-    <!-- 鼻子 -->
     <ellipse cx="22" cy="6" rx="2.5" ry="1.8" fill="#e8b098"/>
-    <!-- 嘴 -->
     <path d="M22,8 Q18,12 16,10" fill="none" stroke="#e8b4b8" stroke-width="1"/>
     <path d="M22,8 Q26,12 28,10" fill="none" stroke="#e8b4b8" stroke-width="1"/>
   </g>
 
-  <!-- 小鸡 (右2) -->
-  <g transform="translate(250, 100)">
-    <!-- 身体 -->
+  <!-- 小蛙 -->
+  <g transform="translate(210, 148)">
+    <ellipse cx="14" cy="12" rx="12" ry="9" fill="#e0f5e0" stroke="#b8d8b8" stroke-width="1.5"/>
+    <circle cx="14" cy="5" r="8" fill="#e0f5e0" stroke="#b8d8b8" stroke-width="1.5"/>
+    <circle cx="10" cy="3" r="2" fill="#fff"/>
+    <circle cx="18" cy="3" r="2" fill="#fff"/>
+    <circle cx="10" cy="3" r="1" fill="#333"/>
+    <circle cx="18" cy="3" r="1" fill="#333"/>
+    <path d="M11,8 Q14,11 17,8" fill="none" stroke="#b8d8b8" stroke-width="1"/>
+    <circle cx="4" cy="16" r="3" fill="#e0f5e0" stroke="#b8d8b8" stroke-width="1"/>
+    <circle cx="24" cy="16" r="3" fill="#e0f5e0" stroke="#b8d8b8" stroke-width="1"/>
+  </g>
+
+  <!-- 小鸡 -->
+  <g transform="translate(258, 140)">
     <circle cx="18" cy="18" r="14" fill="#fff" stroke="#f0d080" stroke-width="1.8"/>
-    <!-- 冠 -->
     <path d="M12,6 Q10,0 14,3 Q16,-2 18,4 Q20,-1 22,3 Q26,0 24,6" fill="#ffd080" stroke="#f0c060" stroke-width="1"/>
-    <!-- 眼睛 -->
     <circle cx="15" cy="14" r="1.3" fill="#c09050"/>
     <circle cx="21" cy="14" r="1.3" fill="#c09050"/>
-    <!-- 嘴 -->
     <polygon points="18,17 15,19 18,21" fill="#ffa040"/>
-    <!-- 翅膀 -->
     <ellipse cx="8" cy="18" rx="5" ry="3.5" fill="#fff8e0" stroke="#f0d080" stroke-width="1" transform="rotate(-15 8 18)"/>
     <ellipse cx="28" cy="18" rx="5" ry="3.5" fill="#fff8e0" stroke="#f0d080" stroke-width="1" transform="rotate(15 28 18)"/>
   </g>
 
-  <!-- 小狗 (右1) -->
-  <g transform="translate(310, 88)">
-    <!-- 身体 -->
+  <!-- 仓鼠 -->
+  <g transform="translate(308, 135)">
+    <ellipse cx="16" cy="18" rx="15" ry="12" fill="#fff" stroke="#e8c8a8" stroke-width="1.7"/>
+    <circle cx="16" cy="5" r="10" fill="#fff" stroke="#e8c8a8" stroke-width="1.7"/>
+    <circle cx="10" cy="1" r="5" fill="#fff" stroke="#e8c8a8" stroke-width="1.2"/>
+    <circle cx="10" cy="1" r="3" fill="#ffe8d8"/>
+    <circle cx="22" cy="1" r="5" fill="#fff" stroke="#e8c8a8" stroke-width="1.2"/>
+    <circle cx="22" cy="1" r="3" fill="#ffe8d8"/>
+    <circle cx="13" cy="4" r="1.3" fill="#a08060"/>
+    <circle cx="19" cy="4" r="1.3" fill="#a08060"/>
+    <ellipse cx="16" cy="8" rx="2" ry="1.5" fill="#f0b898"/>
+    <ellipse cx="4" cy="16" rx="4" ry="2.5" fill="#fff8f0" stroke="#e8c8a8" stroke-width="1"/>
+    <circle cx="32" cy="20" r="3.5" fill="#fff" stroke="#e8c8a8" stroke-width="1"/>
+  </g>
+
+  <!-- 小狗 -->
+  <g transform="translate(355, 125)">
     <ellipse cx="22" cy="22" rx="17" ry="14" fill="#fff" stroke="#e8c8a0" stroke-width="1.8"/>
-    <!-- 头 -->
     <circle cx="22" cy="2" r="12" fill="#fff" stroke="#e8c8a0" stroke-width="1.8"/>
-    <!-- 垂耳 -->
     <ellipse cx="8" cy="-2" rx="6" ry="10" fill="#ffe8d0" stroke="#e8c8a0" stroke-width="1.3" transform="rotate(10 8 -2)"/>
     <ellipse cx="36" cy="-2" rx="6" ry="10" fill="#ffe8d0" stroke="#e8c8a0" stroke-width="1.3" transform="rotate(-10 36 -2)"/>
-    <!-- 眼睛 -->
     <circle cx="17" cy="0" r="1.5" fill="#a08060"/>
     <circle cx="27" cy="0" r="1.5" fill="#a08060"/>
-    <!-- 鼻子 -->
     <ellipse cx="22" cy="5" rx="2.5" ry="2" fill="#c8a080"/>
-    <!-- 尾巴 -->
     <path d="M38,18 Q48,8 42,-2" fill="none" stroke="#e8c8a0" stroke-width="2" stroke-linecap="round"/>
   </g>
 
-  <!-- 底部草地线 -->
-  <path d="M0,145 Q30,138 60,142 Q90,146 120,140 Q150,134 180,140 Q210,146 240,141 Q270,136 300,143 Q330,149 360,142 Q380,138 400,144" fill="none" stroke="#e8d0d8" stroke-width="2" stroke-linecap="round"/>
+  <!-- 小星星点缀 -->
+  <text x="20" y="120" font-size="8" opacity="0.4">✦</text>
+  <text x="155" y="110" font-size="6" opacity="0.35">✦</text>
+  <text x="270" y="125" font-size="7" opacity="0.4">✦</text>
+  <text x="350" y="115" font-size="6" opacity="0.3">✦</text>
+  <text x="65" y="125" font-size="5" opacity="0.35">✧</text>
+  <text x="230" y="130" font-size="5" opacity="0.3">✧</text>
+
 </svg>
 
 <script>
@@ -452,21 +522,40 @@
     if (!isOpen) mod.classList.add('open');
   }
 
-  // ---- 飘落的爱心 ----
+  // ---- 密度可控的飘落爱心 ----
   const heartsEmoji = ['💖', '💕', '💗', '🌸', '✨', '💝'];
+  const HEART_INIT = 25;  // 初始数量 (14 * 1.75)
+  const HEART_MAX = 50;   // 上限 (初始 * 2)
+  let heartCount = 0;
+
   function spawnHeart() {
+    if (heartCount >= HEART_MAX) return;
+    heartCount++;
     const el = document.createElement('span');
     el.className = 'falling-heart';
     el.textContent = heartsEmoji[Math.floor(Math.random() * heartsEmoji.length)];
     el.style.left = Math.random() * 95 + '%';
     el.style.fontSize = (16 + Math.random() * 24) + 'px';
     el.style.animationDuration = (8 + Math.random() * 12) + 's';
-    el.style.animationDelay = Math.random() * 5 + 's';
+    el.style.animationDelay = Math.random() * 3 + 's';
     document.body.appendChild(el);
-    el.addEventListener('animationend', () => el.remove());
+    el.addEventListener('animationend', () => { el.remove(); heartCount--; });
   }
-  for (let i = 0; i < 14; i++) spawnHeart();
-  setInterval(spawnHeart, 1500);
+
+  for (let i = 0; i < HEART_INIT; i++) spawnHeart();
+
+  // 间隔随密度增大：接近上限时变慢
+  function scheduleHeart() {
+    if (heartCount >= HEART_MAX) {
+      setTimeout(scheduleHeart, 1000); // 满了就等一下再检查
+      return;
+    }
+    spawnHeart();
+    const ratio = heartCount / HEART_MAX;
+    const next = 800 + ratio * 4000; // 密度低时 ~0.8s/颗，接近上限时 ~4.8s/颗
+    setTimeout(scheduleHeart, next);
+  }
+  setTimeout(scheduleHeart, 2000);
 
   // ---- 错开出发的蓬松云朵 ----
   const clouds = document.getElementById('clouds');
@@ -553,15 +642,30 @@
     clouds.appendChild(wrap);
   }
 
-  // 分批错开生成：每 3~8 秒出一朵，保证画面始终有 3~6 朵
-  function scheduleNext() {
-    spawnCloud();
-    const next = 4000 + Math.random() * 6000;
-    setTimeout(scheduleNext, next);
+  // 密度可控的云朵生成
+  const CLOUD_INIT = 14;  // 初始数量 (8 * 1.75)
+  const CLOUD_MAX = 28;   // 上限 (初始 * 2)
+  let cloudCount = 0;
+
+  // 初始播一批，每朵初始相位不同（负 animation-delay），分散在屏幕各处
+  for (let i = 0; i < CLOUD_INIT; i++) { spawnCloud(); cloudCount++; }
+  // 动画结束时回收计数
+  clouds.addEventListener('animationend', (e) => {
+    if (e.target.classList.contains('cloud-wrap')) { cloudCount--; }
+  });
+
+  function scheduleCloud() {
+    if (cloudCount >= CLOUD_MAX) {
+      setTimeout(scheduleCloud, 2000); // 满了等一下再检查
+      return;
+    }
+    spawnCloud(); cloudCount++;
+    const ratio = cloudCount / CLOUD_MAX;
+    // 密度低 ~5s/朵，接近上限 ~20s/朵
+    const next = 5000 + ratio * 15000;
+    setTimeout(scheduleCloud, next);
   }
-  // 一次性播 8 朵，但每朵初始相位不同（动画 delay 负值），分散在屏幕各处
-  for (let i = 0; i < 8; i++) { spawnCloud(); }
-  setTimeout(scheduleNext, 5000);
+  setTimeout(scheduleCloud, 8000);
 
   // ---- April Encounter 钢琴版 BGM ----
   let audioCtx = null, musicPlaying = false, musicTimer = null;
