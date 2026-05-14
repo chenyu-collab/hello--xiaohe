@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For 小何 💖</title>
+<title>For 小何 | 5201314</title>
+<meta name="description" content="小何，5201314 — 一份特别的礼物">
+<meta property="og:title" content="For 小何 | 5201314">
+<meta property="og:description" content="小何，5201314 — 一份特别的礼物">
+<meta property="og:image" content="https://cy-love-hjj.github.io/hjj520/photo1.jpg">
+<meta property="og:url" content="https://cy-love-hjj.github.io/hjj520/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -89,14 +96,14 @@
     50% { transform: translateY(-8px); }
   }
   .header .title-line1 {
-    font-family: 'Caveat', 'Ma Shan Zheng', 'KaiTi', cursive, sans-serif;
+    font-family: 'KaiTi', 'STKaiti', 'FangSong', cursive, sans-serif;
     font-size: 38px; font-weight: 700; color: #e8456b;
     letter-spacing: 6px;
     text-shadow: 0 2px 8px rgba(232,69,107,0.15);
     line-height: 1.1;
   }
   .header .title-line2 {
-    font-family: 'Caveat', 'Ma Shan Zheng', 'KaiTi', cursive, sans-serif;
+    font-family: 'KaiTi', 'STKaiti', 'FangSong', cursive, sans-serif;
     font-size: 30px; font-weight: 600; color: #ff7b9c;
     letter-spacing: 4px;
     text-shadow: 0 2px 6px rgba(255,123,156,0.2);
@@ -111,7 +118,7 @@
     border-radius: 28px;
     box-shadow: 0 8px 32px rgba(255,120,150,0.12), 0 2px 0 rgba(255,255,255,0.8) inset;
     overflow: hidden;
-    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: border-color 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: 2.5px solid transparent;
   }
   .module.open {
@@ -220,8 +227,8 @@
 
   /* ---- 音乐按钮 ---- */
   .music-btn {
-    position: fixed; top: 20px; right: 20px; z-index: 30;
-    width: 40px; height: 40px; border-radius: 50%;
+    position: fixed; top: max(20px, env(safe-area-inset-top, 0px)); right: max(20px, env(safe-area-inset-right, 0px)); z-index: 30;
+    width: 44px; height: 44px; border-radius: 50%;
     border: 2px solid #ff8ba0;
     background: rgba(255,140,160,0.18);
     backdrop-filter: blur(10px);
@@ -267,13 +274,14 @@
   @media (prefers-reduced-motion: reduce) {
     .cloud-wrap, .falling-heart, .header .icon-row, .breathe { animation: none !important; }
     .music-btn.playing { animation: none; }
+    .mod-body { transition: none !important; }
   }
 </style>
 </head>
 <body>
 
-<div class="clouds" id="clouds"></div>
-<audio id="bgmAudio" src="bgm.mp3" loop preload="auto"></audio>
+<div class="clouds" id="clouds" aria-hidden="true"></div>
+<audio id="bgmAudio" src="bgm.mp3" loop preload="metadata"></audio>
 <button class="music-btn" id="musicBtn" onclick="toggleMusic(event)" title="音乐">🎵</button>
 
 <main class="main-wrap">
@@ -300,7 +308,7 @@
 
   <!-- 模块1: with u -->
   <div class="module" id="modPhotos">
-    <button class="mod-btn" onclick="toggleModule('modPhotos')">
+    <button class="mod-btn" onclick="toggleModule('modPhotos')" aria-expanded="false" aria-label="打开相册">
       <div class="mod-icon photos">📸</div>
       <div class="mod-info">
         <div class="mod-title">with u</div>
@@ -309,10 +317,10 @@
     </button>
     <div class="mod-body">
       <div class="photo-grid">
-        <img src="photo1.jpg" alt="合照1" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;">
-        <img src="photo2.jpg" alt="合照2" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;">
-        <img src="photo3.jpg" alt="合照3" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;">
-        <img src="photo4.jpg" alt="合照4" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;">
+        <img src="photo1.jpg" alt="合照1" loading="lazy" width="400" height="300" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;">
+        <img src="photo2.jpg" alt="合照2" loading="lazy" width="400" height="300" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;">
+        <img src="photo3.jpg" alt="合照3" loading="lazy" width="400" height="300" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;">
+        <img src="photo4.jpg" alt="合照4" loading="lazy" width="400" height="300" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;">
       </div>
       <p class="tip-text">💝 把合照放进来，填满这个相册吧</p>
     </div>
@@ -320,7 +328,7 @@
 
   <!-- 模块2: gift -->
   <div class="module" id="modVideo">
-    <button class="mod-btn" onclick="toggleModule('modVideo')">
+    <button class="mod-btn" onclick="toggleModule('modVideo')" aria-expanded="false" aria-label="打开礼物视频">
       <div class="mod-icon video">🎁</div>
       <div class="mod-info">
         <div class="mod-title">gift</div>
@@ -329,15 +337,16 @@
     </button>
     <div class="mod-body">
       <video src="video.mp4" controls playsinline
+        poster="poster.jpg"
         style="width:100%;border-radius:16px;aspect-ratio:16/10;object-fit:contain;background:#000;"
-        preload="metadata"></video>
+        preload="none"></video>
       <p class="tip-text">🎁 录一段想对她说的话吧</p>
     </div>
   </div>
 
   <!-- 模块3: letter -->
   <div class="module" id="modLetter">
-    <button class="mod-btn" onclick="toggleModule('modLetter')">
+    <button class="mod-btn" onclick="toggleModule('modLetter')" aria-expanded="false" aria-label="打开情书">
       <div class="mod-icon letter">💌</div>
       <div class="mod-info">
         <div class="mod-title">letter</div>
@@ -521,28 +530,37 @@
   // ---- 模块折叠 ----
   function toggleModule(id) {
     const mod = document.getElementById(id);
+    const btn = mod.querySelector('.mod-btn');
     const isOpen = mod.classList.contains('open');
-    document.querySelectorAll('.module.open').forEach(m => m.classList.remove('open'));
+    document.querySelectorAll('.module.open').forEach(m => {
+      m.classList.remove('open');
+      const b = m.querySelector('.mod-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
     if (!isOpen) {
       mod.classList.add('open');
-      localStorage.setItem('openModule', id);
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+      try { localStorage.setItem('openModule', id); } catch (e) {}
     } else {
-      localStorage.removeItem('openModule');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      try { localStorage.removeItem('openModule'); } catch (e) {}
     }
   }
 
   // 记忆上次展开的模块
   (function restoreModule() {
-    const saved = localStorage.getItem('openModule');
-    if (saved) {
-      const mod = document.getElementById(saved);
-      if (mod) mod.classList.add('open');
-    }
+    try {
+      const saved = localStorage.getItem('openModule');
+      if (saved) {
+        const mod = document.getElementById(saved);
+        if (mod) { mod.classList.add('open'); mod.querySelector('.mod-btn')?.setAttribute('aria-expanded', 'true'); }
+      }
+    } catch (e) {}
   })();
 
   // ---- 密度可控的飘落爱心 ----
   const heartsEmoji = ['💖', '💕', '💗', '🌸', '✨', '💝'];
-  const HEART_INIT = 25;  // 初始数量 (14 * 1.75)
+  const HEART_INIT = 25;
   const HEART_MAX = 50;   // 上限 (初始 * 2)
   let heartCount = 0;
 
@@ -551,6 +569,7 @@
     heartCount++;
     const el = document.createElement('span');
     el.className = 'falling-heart';
+    el.setAttribute('aria-hidden', 'true');
     el.textContent = heartsEmoji[Math.floor(Math.random() * heartsEmoji.length)];
     el.style.left = Math.random() * 95 + '%';
     el.style.fontSize = (16 + Math.random() * 24) + 'px';
@@ -746,7 +765,7 @@
   // 首次点击页面 → 取消静音
   document.addEventListener('click', (e) => {
     if (!userTouched) unmuteAndPlay();
-  }, { once: false });
+  }, { once: true });
 </script>
 
 </body>
